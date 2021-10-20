@@ -1,0 +1,89 @@
+#include <iostream>
+using namespace std;
+
+bool isPalindrome(int x) {
+    //complete the function
+    int digitos = 1;
+    int x_prov = x;
+
+    /* The next while loop will count the number of 
+    digits of the number x, and will store it
+    on the variable "digitos" */
+
+    while(x_prov/10 != 0){
+    
+        x_prov /= 10;
+        digitos += 1;
+    }
+    
+    /* Now we're going to create an array ("inverso") which 
+    contains every digit of the number x, but in reverse orde */
+   
+    int inverso[digitos];
+    int dig = 0;
+    int x_prov_2 = x;
+    int x_prov_3 = x;
+
+    if (x_prov_2/10 == 0){
+        inverso[dig] = x_prov_2 % 10;
+    }else{
+        while(x_prov_2/10 != 0){
+            inverso[dig] = x_prov_2 % 10;
+            x_prov_2 /= 10;
+            dig += 1;
+            if (x_prov_2/10 == 0){
+                inverso[dig] = x_prov_2 % 10;
+            }
+            
+        }
+    }
+
+    /* Now that we know the number of digits, we're going to create
+    another array ("original"), which contains the digits of the number x
+    in the correct order */
+    
+    int original[digitos];
+    for(int i = digitos - 1; i >= 0;i--){
+        original[i] = x_prov_3 % 10;
+        x_prov_3 /= 10;        
+    }
+
+    /* We're going to perform a comparison between "original"
+     and "inverso" */
+
+    bool comparacion[digitos];
+    int suma = 0;
+
+    for (int j = 0; j < digitos; j++ ){
+        comparacion[j] = original[j] == inverso[j];
+    }
+
+    for (int k = 0;k < digitos; k++ ){
+        if (comparacion[k] == true){
+            suma += 1;
+        }
+    }
+
+    if ((suma == digitos) | (digitos == 1)){
+        return true;
+    }else{
+        return false;
+    }
+        
+
+}
+    
+
+
+int main() {
+    int n;
+    cin >>n;
+    
+    if(isPalindrome(n)) {
+        cout <<n<<" is a palindrome";
+    }
+    else {
+        cout << n<<" is NOT a palindrome";
+    }
+
+}
